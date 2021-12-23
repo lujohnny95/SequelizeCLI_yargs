@@ -1,7 +1,7 @@
 const { Sequelize } = require("sequelize");
 require("dotenv").config();
 
-const sequelize = new Sequelize(process.env.MYSQL.URI);
+const sequelize = new Sequelize(process.env.MYSQL_URI);
 
 try {
     sequelize.authenticate();

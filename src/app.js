@@ -1,6 +1,6 @@
 require("./db/connection");
 const yargs = require("yargs");
-const { addBook, findAllBooks, findBook, deleteBook } = require("./book/book.function");
+const { addBook, findAllBooks, findBook, updateBook, deleteBook } = require("./book/book.function");
 const sequelize = require("sequelize");
 
 const app = async (args) => {
@@ -15,17 +15,18 @@ const app = async (args) => {
         else if (args.findAll) {
             await findAllBooks();
         }
-        else if (args.findOne) {
+        else if (args.findBook) {
             const findObj = {title: args.title}
-            await findBook();
+            await findBook(findObj);
         }
-        else if (args.updateBook) {
+        else if (args.update) {
+            const filter = {id: args.id}
             const updateObj = {updateKey: args.key, updateValue: args.value}
-            await updateBook();
+            await updateBook(updateObj, filter);
         }
-        else if (args.deleteBook) {
-            const deleteObj = {title: args.title}
-            await deleteBook();
+        else if (args.delete) {
+            const deleteObj = {id: args.id}
+            await deleteBook(deleteObj);
         }
         else {
             console.log("Incorrect command")

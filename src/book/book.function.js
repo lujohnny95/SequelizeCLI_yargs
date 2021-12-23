@@ -29,9 +29,11 @@ exports.findBook = async(findObj) => {
     }
 };
 //update a book by [key: value]:
-exports.updateBook = async(updateObj) => {
+exports.updateBook = async(updateObj, filter) => {
     try {
-        await Book.update({updateObj})
+        await Book.update(
+            { updateObj }, 
+            { where: filter })
         console.log("This book has been update in Book records.")
     } catch (error) {
         console.log(error);
@@ -41,7 +43,7 @@ exports.updateBook = async(updateObj) => {
 exports.deleteBook = async(deleteObj) => {
     try {
         await Book.destroy({where: deleteObj});
-        console.log(`${deleteObj.title} has been removed from Book records.`)
+        console.log(`${deleteObj.id} has been removed from Book records.`)
     } catch (error) {
         console.log(error);
     }
