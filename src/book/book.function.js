@@ -5,16 +5,16 @@ exports.addBook = async (bookObj) => {
     try {
         await Book.sync();
         await Book.create(bookObj);
-        console.log(`Successfully added ${bookObj.title} to the database.`)
+        console.log(`Successfully added ${bookObj.title} to the Book records.`)
     } catch (error) {
         console.log(error);
     }
 };
-//find all books in DB:
-exports.findAllBooks = async () => {
+//find all books in the table:
+exports.listBooks = async () => {
     try {
         await Book.findAll()
-        console.log(`Successfully accessed records.`)
+        console.log(`Successfully accessed records of all books.`)
     } catch (error) {
         console.log(error);
     }
@@ -22,7 +22,7 @@ exports.findAllBooks = async () => {
 //find a book by title:
 exports.findBook = async(findObj) => {
     try {
-        await Book.findOne(findObj)
+        await Book.findOne({ where: findObj })
         console.log(`${findObj.title} has been found in Book records.`)
     } catch (error) {
         console.log(error);
@@ -31,9 +31,7 @@ exports.findBook = async(findObj) => {
 //update a book by [key: value]:
 exports.updateBook = async(updateObj, filter) => {
     try {
-        await Book.update(
-            { updateObj }, 
-            { where: filter })
+        await Book.update({ updateObj }, { where: filter })
         console.log("This book has been update in Book records.")
     } catch (error) {
         console.log(error);
